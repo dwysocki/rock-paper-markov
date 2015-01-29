@@ -29,9 +29,7 @@
         move->prob-lose
         (into {}
               (map (fn [move]
-                     (let [weakness (move->weakness move)]
-                       [move (apply + (vals (dissoc move->prob
-                                                    weakness)))]))
+                     [move (-> move move->weakness move->prob)])
                    all-moves))
         min-prob (apply min (vals move->prob-lose))
         min-moves (filter (fn [[move prob]] (= prob min-prob))
